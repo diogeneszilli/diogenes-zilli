@@ -20,14 +20,6 @@ public class UsuarioRepresentation {
 
     public static UsuarioRepresentation build(Usuario usuario) {
         return new UsuarioRepresentation.Builder()
-                .login(usuario.getLogin())
-                .senha(usuario.getSenha())
-                .tipoUsuario(usuario.getTipoUsuario().name())
-                .build();
-    }
-
-    public static UsuarioRepresentation buildToSecurity(Usuario usuario) {
-        return new UsuarioRepresentation.Builder()
                 .id(usuario.getId())
                 .login(usuario.getLogin())
                 .tipoUsuario(usuario.getTipoUsuario().name())
@@ -37,7 +29,7 @@ public class UsuarioRepresentation {
     public static List<UsuarioRepresentation> toRepresentation(List<Usuario> usuarios) {
         Objects.requireNonNull(usuarios);
         return usuarios.stream()
-                .map(UsuarioRepresentation::buildToSecurity)
+                .map(UsuarioRepresentation::build)
                 .collect(Collectors.toList());
     }
 

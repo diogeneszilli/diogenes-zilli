@@ -36,7 +36,7 @@ public class UsuarioController {
         try {
             Usuario usuario = repository.findUserById(id);
             return id.equals(usuario.getId())
-                    ? new ResponseEntity(UsuarioRepresentation.buildToSecurity(usuario), HttpStatus.OK)
+                    ? new ResponseEntity(UsuarioRepresentation.build(usuario), HttpStatus.OK)
                     : new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (Exception err) {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
