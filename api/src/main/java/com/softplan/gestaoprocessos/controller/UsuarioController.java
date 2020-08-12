@@ -44,9 +44,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insert(@RequestBody UsuarioRepresentation dto) {
+    public ResponseEntity<?> insert(@RequestBody UsuarioRepresentation entity) {
         try {
-            Usuario usuario = UsuarioRepresentation.fromRepresentation(dto);
+            Usuario usuario = UsuarioRepresentation.fromRepresentation(entity);
             repository.save(usuario);
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception err) {
@@ -55,10 +55,10 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UsuarioRepresentation dto) {
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UsuarioRepresentation entity) {
         try {
             Usuario usuarioConsolidado = repository.findUserById(id);
-            Usuario usuario = UsuarioRepresentation.fromRepresentation(dto);
+            Usuario usuario = UsuarioRepresentation.fromRepresentation(entity);
             if (Objects.nonNull(usuarioConsolidado)) {
                 repository.save(usuario);
                 return new ResponseEntity(HttpStatus.OK);
