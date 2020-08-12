@@ -29,7 +29,7 @@ public class ProcessoService {
             processos = query
                     .from(qProcesso)
                     .innerJoin(qProcesso.pareceres ,qParecer)
-                    .where(qParecer.usuario.id.eq(id).and(qParecer.pendente.isTrue()))
+                    .where(qParecer.user.id.eq(id).and(qParecer.pendente.isTrue()))
                     .fetch();
         } else {
             processos = query

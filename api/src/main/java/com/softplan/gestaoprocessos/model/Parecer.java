@@ -19,7 +19,7 @@ public class Parecer {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     @NotNull
-    private Usuario usuario;
+    private User user;
 
     @Column(name = "descricao")
     private String descricao;
@@ -36,8 +36,8 @@ public class Parecer {
             parecer = new Parecer();
         }
 
-        public Builder usuario(Usuario usuario) {
-            parecer.setUsuario(usuario);
+        public Builder usuario(User user) {
+            parecer.setUser(user);
             return this;
         }
 

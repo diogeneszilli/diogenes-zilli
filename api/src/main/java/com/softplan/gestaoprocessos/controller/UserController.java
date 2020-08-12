@@ -1,8 +1,9 @@
 package com.softplan.gestaoprocessos.controller;
 
-import com.softplan.gestaoprocessos.model.Usuario;
-import com.softplan.gestaoprocessos.repository.UsuarioRepository;
-import com.softplan.gestaoprocessos.representation.UsuarioRepresentation;
+import com.softplan.gestaoprocessos.model.User;
+import com.softplan.gestaoprocessos.repository.UserRepository;
+import com.softplan.gestaoprocessos.representation.UserRepresentation;
+import com.softplan.gestaoprocessos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -16,27 +17,30 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/usuarios")
 @Scope(WebApplicationContext.SCOPE_REQUEST)
-public class UsuarioController {
+public class UserController {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UserRepository repository;
 
     @Autowired
-    private UsuarioRepresentation representation;
+    private UserService service;
+
+    @Autowired
+    private UserRepresentation representation;
 
     @GetMapping
     public ResponseEntity<?> findAll() {
-        List<Usuario> usuarios = repository.findAll();
-        return new ResponseEntity(representation.toRepresentation(usuarios), HttpStatus.OK);
+        List<User> users = repository.findAll();
+        return new ResponseEntity(representation.toRepresentation(users), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         System.out.println(id);
         try {
-            Usuario usuario = repository.findUserById(id);
-            return id.equals(usuario.getId())
-                    ? new ResponseEntity(UsuarioRepresentation.build(usuario), HttpStatus.OK)
+            User user = repository.findUserById(id);
+            return id.equals(user.getId())
+                    ? new ResponseEntity(UserRepresentation.build(user), HttpStatus.OK)
                     : new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (Exception err) {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
@@ -44,10 +48,10 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insert(@RequestBody UsuarioRepresentation entity) {
+    public ResponseEntity<?> insert(@RequestBody UserRepresentation entity) {
         try {
-            Usuario usuario = UsuarioRepresentation.fromRepresentation(entity);
-            repository.save(usuario);
+            User user = UserRepresentation.fromRepresentation(entity);
+            service.save(user);
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception err) {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
@@ -55,12 +59,12 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UsuarioRepresentation entity) {
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UserRepresentation entity) {
         try {
-            Usuario usuarioConsolidado = repository.findUserById(id);
-            Usuario usuario = UsuarioRepresentation.fromRepresentation(entity);
-            if (Objects.nonNull(usuarioConsolidado)) {
-                repository.save(usuario);
+            User userConsolidado = repository.findUserById(id);
+            User user = UserRepresentation.fromRepresentation(entity);
+            if (Objects.nonNull(userConsolidado)) {
+                repository.save(user);
                 return new ResponseEntity(HttpStatus.OK);
             }
             return new ResponseEntity(HttpStatus.NO_CONTENT);

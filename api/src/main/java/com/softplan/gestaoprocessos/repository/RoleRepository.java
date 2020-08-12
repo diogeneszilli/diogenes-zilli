@@ -1,10 +1,9 @@
 package com.softplan.gestaoprocessos.repository;
 
-import com.softplan.gestaoprocessos.model.Usuario;
+import com.softplan.gestaoprocessos.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Usuario findUserById(Long id);
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
