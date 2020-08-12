@@ -37,6 +37,11 @@ public class Usuario {
             usuario = new Usuario();
         }
 
+        public Builder id(Long id) {
+            usuario.setId(id);
+            return this;
+        }
+
         public Builder login(String login) {
             usuario.setLogin(login);
             return this;
