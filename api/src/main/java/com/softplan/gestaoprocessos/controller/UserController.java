@@ -36,7 +36,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
-        System.out.println(id);
         try {
             User user = repository.findUserById(id);
             return id.equals(user.getId())
