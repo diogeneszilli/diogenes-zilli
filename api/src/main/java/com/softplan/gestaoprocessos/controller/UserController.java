@@ -63,7 +63,7 @@ public class UserController {
             User userConsolidado = repository.findUserById(id);
             User user = UserRepresentation.fromRepresentation(entity);
             if (Objects.nonNull(userConsolidado)) {
-                repository.save(user);
+                service.save(user);
                 return new ResponseEntity(HttpStatus.OK);
             }
             return new ResponseEntity(HttpStatus.NO_CONTENT);

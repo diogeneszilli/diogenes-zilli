@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user")
-@SequenceGenerator(name = "user_seq", allocationSize = 1)
+@SequenceGenerator(name = "user_seq", allocationSize = 1, initialValue = 2)
 public class User {
 
     @Id

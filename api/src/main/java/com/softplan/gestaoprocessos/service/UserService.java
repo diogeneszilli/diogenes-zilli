@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class UserService {
 
@@ -22,7 +25,12 @@ public class UserService {
 
     public User save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(user.getRoles());
+        Set<Role> roles = new HashSet<>();
+        user.getRoles().forEach(role -> {
+            Role entity = roleRepository.findRoleById(role.getId());
+            roles.add(entity);
+        });
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 }
