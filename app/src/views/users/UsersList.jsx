@@ -34,8 +34,9 @@ class TableList extends Component {
     return result;
   }
 
-  remove(id) {
-    console.log('remove', id);
+  async remove(id) {
+    await api.delete(`usuarios/${id}`);
+    this.loadUsers();
   }
 
   render() {
@@ -45,13 +46,14 @@ class TableList extends Component {
     return (
       <div className="content">
         <Grid fluid>
-          <NavLink to="/admin/new/user" className="nav-link pull-right" activeClassName="active">
-            <Button bsStyle="info" marginBottom pullRight fill type="submit">
+          
+          <Row>
+            <Col md={12}>
+            <NavLink to="/admin/new/user" className="nav-link pull-right" activeClassName="active">
+            <Button bsStyle="info" margin pullRight fill type="submit">
               Adicionar usuário
             </Button>
           </NavLink>
-          <Row>
-            <Col md={12}>
               <Card
                 title="Listagem de usuários"
                 ctTableFullWidth
