@@ -32,14 +32,14 @@ public class UserController {
     private UserRepresentation representation;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> findAll() {
         List<User> users = repository.findAll();
         return new ResponseEntity(representation.toRepresentation(users), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         try {
             User user = repository.findUserById(id);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> insert(@RequestBody UserRepresentation entity) {
         try {
             User user = UserRepresentation.fromRepresentation(entity);
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UserRepresentation entity) {
         try {
             User userConsolidado = repository.findUserById(id);
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         try {
             repository.deleteById(id);

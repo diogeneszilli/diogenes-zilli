@@ -33,7 +33,7 @@ public class ProcessoController {
 
 
     @GetMapping
-    @PreAuthorize("hasRole('TRIADOR')")
+    @PreAuthorize("hasRole('ROLE_TRIADOR')")
     public ResponseEntity<?> findAll() {
         List<Processo> processos = repository.findAll();
         return new ResponseEntity(ProcessoRepresentation.toRepresentation(processos), HttpStatus.OK);
@@ -41,7 +41,7 @@ public class ProcessoController {
 
 
     @GetMapping("/parecer-pendente/{id}")
-    @PreAuthorize("hasRole('FINALIZADOR')")
+    @PreAuthorize("hasRole('ROLE_FINALIZADOR')")
     public ResponseEntity<?> findParecerPendenteByUserId(@PathVariable("id") Long id) {
         List<Processo> processos = service.findAllParecerPendente(id);
         return new ResponseEntity(ProcessoRepresentation.toRepresentation(processos), HttpStatus.OK);
@@ -49,7 +49,7 @@ public class ProcessoController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('TRIADOR') or hasRole('FINALIZADOR')")
+    @PreAuthorize("hasRole('ROLE_TRIADOR') or hasRole('ROLE_FINALIZADOR')")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         try {
             Processo processo = repository.findProcessoById(id);
@@ -62,7 +62,7 @@ public class ProcessoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('TRIADOR') or hasRole('FINALIZADOR')")
+    @PreAuthorize("hasRole('ROLE_TRIADOR') or hasRole('ROLE_FINALIZADOR')")
     public ResponseEntity<?> insert(@RequestBody ProcessoRepresentation entity) {
         try {
             Processo processo = ProcessoRepresentation.fromRepresentation(entity);
@@ -74,7 +74,7 @@ public class ProcessoController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('TRIADOR') or hasRole('FINALIZADOR')")
+    @PreAuthorize("hasRole('ROLE_TRIADOR') or hasRole('ROLE_FINALIZADOR')")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody ProcessoRepresentation entity) {
         try {
             Processo processoConsolidado = repository.findProcessoById(id);
