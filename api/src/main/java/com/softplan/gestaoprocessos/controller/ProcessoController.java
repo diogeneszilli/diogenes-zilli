@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -16,6 +18,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/processos")
+@Transactional
 @Scope(WebApplicationContext.SCOPE_REQUEST)
 public class ProcessoController {
 
@@ -28,19 +31,25 @@ public class ProcessoController {
     @Autowired
     private ProcessoRepresentation representation;
 
+
     @GetMapping
+    @PreAuthorize("hasRole('TRIADOR')")
     public ResponseEntity<?> findAll() {
         List<Processo> processos = repository.findAll();
         return new ResponseEntity(ProcessoRepresentation.toRepresentation(processos), HttpStatus.OK);
     }
 
+
     @GetMapping("/parecer-pendente/{id}")
+    @PreAuthorize("hasRole('FINALIZADOR')")
     public ResponseEntity<?> findParecerPendenteByUserId(@PathVariable("id") Long id) {
         List<Processo> processos = service.findAllParecerPendente(id);
         return new ResponseEntity(ProcessoRepresentation.toRepresentation(processos), HttpStatus.OK);
     }
 
+
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('TRIADOR') or hasRole('FINALIZADOR')")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         try {
             Processo processo = repository.findProcessoById(id);
@@ -53,6 +62,7 @@ public class ProcessoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('TRIADOR') or hasRole('FINALIZADOR')")
     public ResponseEntity<?> insert(@RequestBody ProcessoRepresentation entity) {
         try {
             Processo processo = ProcessoRepresentation.fromRepresentation(entity);
@@ -64,6 +74,7 @@ public class ProcessoController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('TRIADOR') or hasRole('FINALIZADOR')")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody ProcessoRepresentation entity) {
         try {
             Processo processoConsolidado = repository.findProcessoById(id);

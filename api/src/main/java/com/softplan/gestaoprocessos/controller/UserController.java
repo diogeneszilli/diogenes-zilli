@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -16,6 +18,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@Transactional
 @Scope(WebApplicationContext.SCOPE_REQUEST)
 public class UserController {
 
@@ -29,12 +32,14 @@ public class UserController {
     private UserRepresentation representation;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> findAll() {
         List<User> users = repository.findAll();
         return new ResponseEntity(representation.toRepresentation(users), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> findById(@PathVariable("id") Long id) {
         try {
             User user = repository.findUserById(id);
@@ -47,6 +52,7 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> insert(@RequestBody UserRepresentation entity) {
         try {
             User user = UserRepresentation.fromRepresentation(entity);
@@ -58,6 +64,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UserRepresentation entity) {
         try {
             User userConsolidado = repository.findUserById(id);
@@ -73,6 +80,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         try {
             repository.deleteById(id);
