@@ -4,10 +4,10 @@ import { NavItem, Nav } from "react-bootstrap";
 class AdminNavbarLinks extends Component {
   render() {
     return (
-      <div>
+      <div className="pull-right">
         <Nav>
           <NavItem eventKey={3} href="#">
-            Log out
+            Logout
           </NavItem>
         </Nav>
       </div>
