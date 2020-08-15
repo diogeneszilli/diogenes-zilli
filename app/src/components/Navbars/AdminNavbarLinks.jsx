@@ -6,7 +6,7 @@ class AdminNavbarLinks extends Component {
     return (
       <div className="pull-right">
         <Nav>
-          <NavItem eventKey={3} href="#">
+          <NavItem href="/login" onClick={() => localStorage.clear()}>
             Logout
           </NavItem>
         </Nav>
