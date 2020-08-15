@@ -15,8 +15,9 @@ class Admin extends Component {
     };
   }
   getRoutes = routes => {
+    const role = localStorage.getItem('Role');
     return routes.map((prop, key) => {
-      if (prop.layout === "/home") {
+      if (prop.auth.includes(role)) {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -29,7 +30,7 @@ class Admin extends Component {
           />
         );
       } else {
-        return null;
+        prop.disabled = true;
       }
     });
   };

@@ -2,6 +2,12 @@ import UserForm from "views/users/UserForm.jsx";
 import UsersList from "views/users/UsersList.jsx";
 import UserProfile from "views/UserProfile"
 
+const roles = {
+  ADMINISTRADOR: "ADMINISTRADOR",
+  TRIADOR: "TRIADOR",
+  FINALIZADOR: "FINALIZADOR"
+}
+
 const dashboardRoutes = [
   {
     path: "/user",
@@ -9,6 +15,7 @@ const dashboardRoutes = [
     icon: "pe-7s-user",
     component: UsersList,
     layout: "/home",
+    auth: [roles.ADMINISTRADOR]
   },
   {
     path: "/new/user",
@@ -16,6 +23,7 @@ const dashboardRoutes = [
     icon: "pe-7s-user",
     component: UserForm,
     layout: "/home",
+    auth: [roles.ADMINISTRADOR],
     disabled: true
   },
   {
@@ -24,6 +32,7 @@ const dashboardRoutes = [
     icon: "pe-7s-user",
     component: UserForm,
     layout: "/home",
+    auth: [roles.ADMINISTRADOR],
     disabled: true
   },
   {
@@ -31,14 +40,16 @@ const dashboardRoutes = [
     name: "Processos",
     icon: "pe-7s-note2",
     component: UserProfile,
-    layout: "/home",
+    auth: [roles.TRIADOR],
+    layout: "/home"
   },
   {
     path: "/table",
     name: "Pareceres",
     icon: "pe-7s-note2",
     component: UserForm,
-    layout: "/home",
+    auth: [roles.FINALIZADOR],
+    layout: "/home"
   }
 ];
 
