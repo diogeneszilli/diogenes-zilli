@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createBrowserHistory } from "history";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import api from "services/api";
 import "./Login.css";
@@ -6,22 +7,37 @@ import "./Login.css";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [invalidCredential, setInvalidCredential] = useState(false);
 
   function validateForm() {
     return username.length > 0 && password.length > 0;
   }
 
-  const handleSubmit = async (event) => {
-    var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
+  function setAuth(auth) {
     localStorage.setItem("Authorization", auth);
-    localStorage.setItem("Username", username);
-    try {
+  }
+
+  function setRole(role) {
+    localStorage.setItem("Role", role);
+  }
+
+  function goToHome() {
+    createBrowserHistory().push("/home");
+    window.location.reload(false);
+  }
+
+  const handleSubmit = async (event) => {
+      try {
+        var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
+        setAuth(auth);
         await api.get("basicAuth");
-        // redirect to admin and get user to get role and show menu option for the role
+        const { data } = await api.get(`/usuarios/getRole/${username}`);
+        const role = data.roles[0].role;
+        setRole(role);
+        goToHome();
     } catch {
-        console.log('fail');
         localStorage.clear();
-        // notify invalid credentials
+        setInvalidCredential(true);
     }
 }
 
@@ -29,6 +45,7 @@ export default function Login() {
     <div className="Login">
       <form>
         <FormGroup controlId="username" bsSize="large">
+          {invalidCredential ? <p className="invalid-credential">Invalid Credential</p> : ""}
           <ControlLabel>Username</ControlLabel>
           <FormControl
             autoFocus
