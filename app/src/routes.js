@@ -1,6 +1,9 @@
 import UserForm from "views/users/UserForm.jsx";
-import UsersList from "views/users/UsersList.jsx";
-import UserProfile from "views/UserProfile"
+import UserList from "views/users/UserList.jsx";
+import ProcessoForm from "views/processos/ProcessoForm.jsx";
+import ProcessoList from "views/processos/ProcessoList.jsx";
+import ParecerForm from "views/pareceres/ParecerForm.jsx";
+import ParecerList from "views/pareceres/ParecerList.jsx";
 
 const roles = {
   ADMINISTRADOR: "ADMINISTRADOR",
@@ -13,7 +16,7 @@ const dashboardRoutes = [
     path: "/user",
     name: "Usuários",
     icon: "pe-7s-user",
-    component: UsersList,
+    component: UserList,
     layout: "/home",
     auth: [roles.ADMINISTRADOR]
   },
@@ -36,20 +39,56 @@ const dashboardRoutes = [
     disabled: true
   },
   {
-    path: "/table",
+    path: "/processo",
     name: "Processos",
     icon: "pe-7s-note2",
-    component: UserProfile,
+    component: ProcessoList,
     auth: [roles.TRIADOR],
     layout: "/home"
   },
   {
-    path: "/table",
+    path: "/new/processo",
+    name: "Processos",
+    icon: "pe-7s-note2",
+    component: ProcessoForm,
+    layout: "/home",
+    auth: [roles.TRIADOR],
+    disabled: true
+  },
+  {
+    path: "/edit/processo/:id",
+    name: "Processos",
+    icon: "pe-7s-note2",
+    component: ProcessoForm,
+    layout: "/home",
+    auth: [roles.TRIADOR],
+    disabled: true
+  },
+  {
+    path: "/parecer",
     name: "Pareceres",
     icon: "pe-7s-note2",
-    component: UserForm,
+    component: ParecerList,
     auth: [roles.FINALIZADOR],
     layout: "/home"
+  },
+  {
+    path: "/new/parecer",
+    name: "Pareceres",
+    icon: "pe-7s-note2",
+    component: ParecerForm,
+    layout: "/home",
+    auth: [roles.FINALIZADOR],
+    disabled: true
+  },
+  {
+    path: "/edit/parecer/:id",
+    name: "Pareceres",
+    icon: "pe-7s-note2",
+    component: ParecerForm,
+    layout: "/home",
+    auth: [roles.FINALIZADOR],
+    disabled: true
   }
 ];
 
