@@ -799,3 +799,7 @@
 .cursor-pointer {
   cursor: pointer;
 }
+.invalid-credential{
+  color: #cc3300;
+  text-align-last: center;
+}
