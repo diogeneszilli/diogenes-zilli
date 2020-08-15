@@ -7,7 +7,7 @@ import Card from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { thArray, tdArray } from "variables/Variables.jsx";
 
-class TableList extends Component {
+class UserList extends Component {
 
   state = {
     users: []
@@ -92,4 +92,4 @@ class TableList extends Component {
   }
 }
 
-export default TableList;
+export default UserList;
