@@ -8,14 +8,14 @@ const dashboardRoutes = [
     name: "Usuários",
     icon: "pe-7s-user",
     component: UsersList,
-    layout: "/admin",
+    layout: "/home",
   },
   {
     path: "/new/user",
     name: "Usuários",
     icon: "pe-7s-user",
     component: UserForm,
-    layout: "/admin",
+    layout: "/home",
     disabled: true
   },
   {
@@ -23,7 +23,7 @@ const dashboardRoutes = [
     name: "Usuários",
     icon: "pe-7s-user",
     component: UserForm,
-    layout: "/admin",
+    layout: "/home",
     disabled: true
   },
   {
@@ -31,14 +31,14 @@ const dashboardRoutes = [
     name: "Processos",
     icon: "pe-7s-note2",
     component: UserProfile,
-    layout: "/admin",
+    layout: "/home",
   },
   {
     path: "/table",
     name: "Pareceres",
     icon: "pe-7s-note2",
     component: UserForm,
-    layout: "/finalizador",
+    layout: "/home",
   }
 ];
 

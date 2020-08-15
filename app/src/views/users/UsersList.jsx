@@ -49,7 +49,7 @@ class TableList extends Component {
           
           <Row>
             <Col md={12}>
-            <NavLink to="/admin/new/user" className="nav-link pull-right" activeClassName="active">
+            <NavLink to="/home/new/user" className="nav-link pull-right" activeClassName="active">
             <Button bsStyle="info" margin pullRight fill type="submit">
               Adicionar usuário
             </Button>
@@ -74,7 +74,7 @@ class TableList extends Component {
                             {prop.map((prop, key) => {
                               return <td key={key}>{prop}</td>;
                             })}
-                            <td><Link to={`/admin/edit/user/${prop[0]}`}>Editar</Link></td>
+                            <td><Link to={`/home/edit/user/${prop[0]}`}>Editar</Link></td>
                             <td><a onClick={() => this.remove(prop[0])} className="cursor-pointer">Excluir</a></td>
                           </tr>
                         );

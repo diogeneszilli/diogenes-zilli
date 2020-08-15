@@ -129,12 +129,12 @@ class UserForm extends Component {
                     <option value="FINALIZADOR">Finalizador</option>
                   </select>
                     
-                    <NavLink to="/admin/user" activeClassName="active">
+                    <NavLink to="/home/user" activeClassName="active">
                       <Button bsStyle="danger" pullRight marginLeftTop fill>
                         Cancelar
                       </Button>
                     </NavLink>
-                    <NavLink to="/admin/new/user" activeClassName="active">
+                    <NavLink to="/home/new/user" activeClassName="active">
                       <Button 
                         onClick={() => this.saveUser(user)}
                         disabled={(!!!this.state.user.name || !!!this.state.user.password)}
