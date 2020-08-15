@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import api from "services/api";
 import "./Login.css";
 
 export default function Login() {
@@ -10,15 +11,23 @@ export default function Login() {
     return username.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
-      console.log('username', username)
-      console.log('password', password);
-    event.preventDefault();
-  }
+  const handleSubmit = async (event) => {
+    var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
+    localStorage.setItem("Authorization", auth);
+    localStorage.setItem("Username", username);
+    try {
+        await api.get("basicAuth");
+        // redirect to admin and get user to get role and show menu option for the role
+    } catch {
+        console.log('fail');
+        localStorage.clear();
+        // notify invalid credentials
+    }
+}
 
   return (
     <div className="Login">
-      <form onSubmit={handleSubmit}>
+      <form>
         <FormGroup controlId="username" bsSize="large">
           <ControlLabel>Username</ControlLabel>
           <FormControl
@@ -36,7 +45,7 @@ export default function Login() {
             type="password"
           />
         </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+        <Button onClick={(event) => handleSubmit(event)} block bsSize="large" disabled={!validateForm()}>
           Login
         </Button>
       </form>

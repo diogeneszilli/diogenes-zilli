@@ -1,15 +1,21 @@
 import axios from "axios";
 
-const baseUrl = process.env.REACT_APP_GITHUB_API;
-const username = process.env.REACT_APP_AUTH_USERNAME;
-const password = process.env.REACT_APP_AUTH_PASSWORD;
+const baseUrl = process.env.REACT_APP_API;
 
-const api = axios.create({ 
-    baseURL: baseUrl,
-    auth: {
-        username: username,
-        password: password
-    } 
-});
+const api = () => {
+    const defaultOptions = {
+      baseURL: baseUrl,
+    };
+  
+    let instance = axios.create(defaultOptions);
+  
+    instance.interceptors.request.use(function (config) {
+      const token = localStorage.getItem("Authorization") || "";
+      config.headers.Authorization =  token;
+      return config;
+    });
+  
+    return instance;
+};
 
-export default api;
+export default api();
