@@ -51,6 +51,19 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getRole/{name}")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRADOR') or hasRole('ROLE_TRIADOR') or hasRole('ROLE_FINALIZADOR')")
+    public ResponseEntity<?> findById(@PathVariable("name") String name) {
+        try {
+            User user = repository.findUserByName(name);
+            return name.equals(user.getName())
+                    ? new ResponseEntity(UserRepresentation.build(user), HttpStatus.OK)
+                    : new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (Exception err) {
+            return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
+        }
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMINISTRADOR')")
     public ResponseEntity<?> insert(@RequestBody UserRepresentation entity) {
