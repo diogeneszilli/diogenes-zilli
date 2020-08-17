@@ -51,13 +51,26 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getRole/{name}")
+    @GetMapping("/byName/{name}")
     @PreAuthorize("hasRole('ROLE_ADMINISTRADOR') or hasRole('ROLE_TRIADOR') or hasRole('ROLE_FINALIZADOR')")
     public ResponseEntity<?> findById(@PathVariable("name") String name) {
         try {
             User user = repository.findUserByName(name);
             return name.equals(user.getName())
                     ? new ResponseEntity(UserRepresentation.build(user), HttpStatus.OK)
+                    : new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (Exception err) {
+            return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
+        }
+    }
+
+    @GetMapping("/byRoleId/{roleId}")
+    @PreAuthorize("hasRole('hasRole('ROLE_TRIADOR')")
+    public ResponseEntity<?> findByRole(@PathVariable("roleId") Long roleId) {
+        try {
+            List<User> users = service.findAllUsersByRole(roleId);
+            return (users.size() > 0)
+                    ? new ResponseEntity(UserRepresentation.toRepresentation(users), HttpStatus.OK)
                     : new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (Exception err) {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
