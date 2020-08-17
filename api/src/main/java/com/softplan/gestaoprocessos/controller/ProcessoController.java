@@ -54,7 +54,7 @@ public class ProcessoController {
         try {
             Processo processo = repository.findProcessoById(id);
             return id.equals(processo.getId())
-                    ? new ResponseEntity(processo, HttpStatus.OK)
+                    ? new ResponseEntity(ProcessoRepresentation.build(processo), HttpStatus.OK)
                     : new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (Exception err) {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
