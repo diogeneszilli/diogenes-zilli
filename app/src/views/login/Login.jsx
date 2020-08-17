@@ -31,7 +31,7 @@ export default function Login() {
         var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
         setAuth(auth);
         await api.get("basicAuth");
-        const { data } = await api.get(`/usuarios/getRole/${username}`);
+        const { data } = await api.get(`/usuarios/byName/${username}`);
         const role = data.roles[0].role;
         setRole(role);
         goToHome();
