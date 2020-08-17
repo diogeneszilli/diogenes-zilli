@@ -5,7 +5,7 @@ import api from "services/api";
 
 import Card from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+import { processosArray } from "variables/Variables.jsx";
 
 class ProcessoList extends Component {
 
@@ -26,9 +26,7 @@ class ProcessoList extends Component {
     const result = [];
     processos.forEach(processo => {
       const array = [];
-      array.push(processo.id.toString());
-      array.push(processo.name);
-      array.push(processo.roles[0].role);
+      array.push("COD 000000000" + processo.id.toString());
       result.push(array);
     })
     return result;
@@ -62,7 +60,7 @@ class ProcessoList extends Component {
                   <Table striped hover>
                     <thead>
                       <tr>
-                        {thArray.map((prop, key) => {
+                        {processosArray.map((prop, key) => {
                           return <th key={key}>{prop}</th>;
                         })}
                       </tr>
@@ -74,8 +72,6 @@ class ProcessoList extends Component {
                             {prop.map((prop, key) => {
                               return <td key={key}>{prop}</td>;
                             })}
-                            <td><Link to={`/home/edit/processo/${prop[0]}`}>Editar</Link></td>
-                            <td><a onClick={() => this.remove(prop[0])} className="cursor-pointer">Excluir</a></td>
                           </tr>
                         );
                       })}
