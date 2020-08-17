@@ -2,6 +2,7 @@ import UserForm from "views/users/UserForm.jsx";
 import UserList from "views/users/UserList.jsx";
 import ProcessoForm from "views/processos/ProcessoForm.jsx";
 import ProcessoList from "views/processos/ProcessoList.jsx";
+import ProcessoView from "views/processos/ProcessoView.jsx";
 import ParecerForm from "views/pareceres/ParecerForm.jsx";
 import ParecerList from "views/pareceres/ParecerList.jsx";
 
@@ -45,6 +46,15 @@ const dashboardRoutes = [
     component: ProcessoList,
     auth: [roles.TRIADOR],
     layout: "/home"
+  },
+  {
+    path: "/view/processo/:id",
+    name: "Processos",
+    icon: "pe-7s-note2",
+    component: ProcessoView,
+    layout: "/home",
+    auth: [roles.TRIADOR],
+    disabled: true
   },
   {
     path: "/new/processo",

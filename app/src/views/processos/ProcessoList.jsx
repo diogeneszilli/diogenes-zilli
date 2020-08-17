@@ -26,15 +26,10 @@ class ProcessoList extends Component {
     const result = [];
     processos.forEach(processo => {
       const array = [];
-      array.push("COD 000000000" + processo.id.toString());
+      array.push(processo.id);
       result.push(array);
     })
     return result;
-  }
-
-  async remove(id) {
-    await api.delete(`processos/${id}`);
-    this.loadProcessos();
   }
 
   render() {
@@ -70,8 +65,9 @@ class ProcessoList extends Component {
                         return (
                           <tr key={key}>
                             {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
+                              return <td key={key}>{"COD 000000000" + prop}</td>;
                             })}
+                            <td><Link to={`/home/view/processo/${prop[0]}`}>Visualizar</Link></td>
                           </tr>
                         );
                       })}
