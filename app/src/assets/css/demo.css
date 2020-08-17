@@ -803,3 +803,10 @@
   color: #cc3300;
   text-align-last: center;
 }
+.checkbox-margin-bottom {
+  margin-bottom: 10px;
+  margin-top: 10px !important
+}
+.checkbox-margin-left {
+  margin-left: 10px;
+}
