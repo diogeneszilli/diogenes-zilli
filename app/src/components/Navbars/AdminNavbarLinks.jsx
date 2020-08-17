@@ -6,8 +6,8 @@ class AdminNavbarLinks extends Component {
     return (
       <div className="pull-right">
         <Nav>
-          <NavItem href="/login" onClick={() => localStorage.clear()}>
-            Logout
+          <NavItem href="/logout" onClick={() => localStorage.clear()}>
+          Logout ({localStorage.getItem("Username")})
           </NavItem>
         </Nav>
       </div>
