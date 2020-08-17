@@ -17,8 +17,10 @@ export default function Login() {
     localStorage.setItem("Authorization", auth);
   }
 
-  function setRole(role) {
+  function setUser(role, username, cod) {
     localStorage.setItem("Role", role);
+    localStorage.setItem("Username", username);
+    localStorage.setItem("Cod", cod);
   }
 
   function goToHome() {
@@ -32,8 +34,9 @@ export default function Login() {
         setAuth(auth);
         await api.get("basicAuth");
         const { data } = await api.get(`/usuarios/byName/${username}`);
+        const { name, id } = data;
         const role = data.roles[0].role;
-        setRole(role);
+        setUser(role, name, id);
         goToHome();
     } catch {
         localStorage.clear();
