@@ -36,6 +36,11 @@ public class Parecer {
             parecer = new Parecer();
         }
 
+        public Builder id(Long id) {
+            parecer.setId(id);
+            return this;
+        }
+
         public Builder usuario(User user) {
             parecer.setUser(user);
             return this;

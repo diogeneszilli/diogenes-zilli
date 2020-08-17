@@ -1,13 +1,13 @@
 package com.softplan.gestaoprocessos.representation;
 
-import com.softplan.gestaoprocessos.model.Parecer;
 import com.softplan.gestaoprocessos.model.Processo;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 public class ProcessoRepresentation {
 
     private Long id;
-    private Set<Parecer> pareceres;
+    private List<ParecerRepresentation> pareceres;
 
     public static ProcessoRepresentation build(Processo processo) {
         return new ProcessoRepresentation.Builder()
                 .id(processo.getId())
-                .pareceres(processo.getPareceres())
+                .pareceres(ParecerRepresentation.toRepresentation(new ArrayList<>(processo.getPareceres())))
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class ProcessoRepresentation {
     public static Processo fromRepresentation(ProcessoRepresentation processo) {
         return new Processo.Builder()
                 .id(processo.getId())
-                .pareceres(processo.getPareceres())
+                .pareceres(new HashSet<>(ParecerRepresentation.fromRepresentationList(new HashSet<>(processo.getPareceres()))))
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class ProcessoRepresentation {
             return this;
         }
 
-        public ProcessoRepresentation.Builder pareceres(Set<Parecer> pareceres) {
+        public ProcessoRepresentation.Builder pareceres(List<ParecerRepresentation> pareceres) {
             processo.setPareceres(pareceres);
             return this;
         }
