@@ -5,7 +5,7 @@ import api from "services/api";
 
 import Card from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+import { pareceresArray } from "variables/Variables.jsx";
 
 class ParecerList extends Component {
 
@@ -18,8 +18,8 @@ class ParecerList extends Component {
   }
 
   loadPareceres = async () => {
-    const { data } = await api.get("pareceres");
-    this.setState({ pareceres: this.formatUsers(data) })
+    const { data } = await api.get("processos/parecer-pendente/" + localStorage.getItem("Cod"));
+    this.setState({ pareceres: this.formatPareceres(data) })
   }
 
   formatPareceres = (pareceres) => {
@@ -27,16 +27,9 @@ class ParecerList extends Component {
     pareceres.forEach(parecer => {
       const array = [];
       array.push(parecer.id.toString());
-      array.push(parecer.name);
-      array.push(parecer.roles[0].role);
       result.push(array);
     })
     return result;
-  }
-
-  async remove(id) {
-    await api.delete(`pareceres/${id}`);
-    this.loadParecer();
   }
 
   render() {
@@ -49,11 +42,6 @@ class ParecerList extends Component {
           
           <Row>
             <Col md={12}>
-            <NavLink to="/home/new/parecer" className="nav-link pull-right" activeClassName="active">
-            <Button bsStyle="info" margin pullRight fill type="submit">
-              Adicionar parecer
-            </Button>
-          </NavLink>
               <Card
                 title="Listagem de pareceres"
                 ctTableFullWidth
@@ -62,7 +50,7 @@ class ParecerList extends Component {
                   <Table striped hover>
                     <thead>
                       <tr>
-                        {thArray.map((prop, key) => {
+                        {pareceresArray.map((prop, key) => {
                           return <th key={key}>{prop}</th>;
                         })}
                       </tr>
@@ -72,10 +60,10 @@ class ParecerList extends Component {
                         return (
                           <tr key={key}>
                             {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
+                              return <td key={key}>{"COD 000000000" + prop}</td>;
                             })}
-                            <td><Link to={`/home/edit/parecer/${prop[0]}`}>Editar</Link></td>
-                            <td><a onClick={() => this.remove(prop[0])} className="cursor-pointer">Excluir</a></td>
+                            {console.log(prop)}
+                            <td><Link to={`/home/edit/parecer/${prop}`}>Adicionar</Link></td>
                           </tr>
                         );
                       })}

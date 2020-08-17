@@ -245,9 +245,8 @@ var style = {
 // //
 //
 const usersArray = ["ID", "Username", "Role", "Edit", "Delete"];
-const processosArray = [
-  ["Código do Processo"]
-];
+const processosArray = ["Código do Processo", "Visualizar processo"];
+const pareceresArray = ["Código do Processo", "Adicionar parecer"];
 
 //
 // //
@@ -575,6 +574,7 @@ module.exports = {
   style, // For notifications (App container and Notifications view)
   usersArray,
   processosArray, // For tables (TableList view)
+  pareceresArray,
   iconsArray, // For icons (Icons view)
   dataPie,
   legendPie,
