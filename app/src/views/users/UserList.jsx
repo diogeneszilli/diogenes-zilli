@@ -5,7 +5,7 @@ import api from "services/api";
 
 import Card from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+import { usersArray } from "variables/Variables.jsx";
 
 class UserList extends Component {
 
@@ -62,7 +62,7 @@ class UserList extends Component {
                   <Table striped hover>
                     <thead>
                       <tr>
-                        {thArray.map((prop, key) => {
+                        {usersArray.map((prop, key) => {
                           return <th key={key}>{prop}</th>;
                         })}
                       </tr>

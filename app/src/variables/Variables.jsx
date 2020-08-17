@@ -244,14 +244,9 @@ var style = {
 // // // For tables
 // //
 //
-const thArray = ["ID", "Username", "Role", "Edit", "Delete"];
-const tdArray = [
-  ["1", "softplan", "Administrador"],
-  ["2", "unic", "Administrador"],
-  ["3", "sienge", "Triador"],
-  ["4", "java", "Triador"],
-  ["5", "react", "Finalizador"],
-  ["6", "docker", "Finalizador"]
+const usersArray = ["ID", "Username", "Role", "Edit", "Delete"];
+const processosArray = [
+  ["Código do Processo"]
 ];
 
 //
@@ -578,8 +573,8 @@ var legendBar = {
 
 module.exports = {
   style, // For notifications (App container and Notifications view)
-  thArray,
-  tdArray, // For tables (TableList view)
+  usersArray,
+  processosArray, // For tables (TableList view)
   iconsArray, // For icons (Icons view)
   dataPie,
   legendPie,
