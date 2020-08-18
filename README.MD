@@ -1,3 +1,8 @@
+# LEIA
+
+## [DOCUMENTAÇÃO WIKI](https://github.com/diogeneszilli/softplan-desafio-fullstack-diogenes-zilli/wiki)
+## [COMO EXECUTAR O PROJETO](https://github.com/diogeneszilli/softplan-desafio-fullstack-diogenes-zilli/wiki/3.-Executar-projeto)
+
 # Desafio implementador fullstack
 
 Seja parte da jornada de transformação digital no Brasil.
